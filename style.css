@@ -4,20 +4,20 @@ body{
     padding:0;
     font-family:Arial, sans-serif;
     background:#ffffff;   /* White background */
-    color:#111;           /* Dark text so visible rahe */
+    color:#111;
     overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ANIMATION ===== */
+/* ===== SOFT ANIMATED BACKGROUND ===== */
 .bg-animation{
     position:fixed;
     width:100%;
     height:100%;
     background:linear-gradient(270deg,#00f7ff,#ff00c8,#00f7ff);
     background-size:600% 600%;
-    animation:gradientMove 8s ease infinite;
+    animation:gradientMove 10s ease infinite;
     z-index:-1;
-    opacity:0.1;
+    opacity:0.08;
 }
 
 @keyframes gradientMove{
@@ -35,13 +35,12 @@ body{
 
 /* ===== PROFILE IMAGE ===== */
 .profile-img{
-    width:160px;
-    height:160px;
+    width:170px;
+    height:170px;
     border-radius:50%;
     object-fit:cover;
-    border:4px solid #00f7ff;
-    box-shadow:0 0 20px #00f7ff,
-               0 0 40px #ff00c8;
+    border:4px solid #00c6ff;
+    box-shadow:0 0 25px rgba(0,198,255,0.5);
     animation:float 3s ease-in-out infinite;
 }
 
@@ -51,19 +50,24 @@ body{
     100%{transform:translateY(0px);}
 }
 
-/* ===== NAME ===== */
-.profile h1{
+/* ===== STYLISH NAME ===== */
+.stylish-name{
+    font-size:52px;
+    font-weight:900;
+    background:linear-gradient(90deg,#00c6ff,#ff0077);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 15px rgba(255,0,120,0.6);
     margin-top:20px;
-    font-size:32px;
-    font-family: 'Orbitron', sans-serif;
     letter-spacing:2px;
-    text-transform:uppercase;
 }
 
 /* ===== PROFESSION ===== */
 .profile p{
-    color:#00f7ff;
-    font-weight:bold;
+    font-size:20px;
+    font-weight:600;
+    color:#333;
+    margin-top:10px;
 }
 
 /* ===== BUTTON CONTAINER ===== */
@@ -82,23 +86,58 @@ body{
     font-size:18px;
     font-weight:bold;
     color:#fff;
-    background:linear-gradient(45deg,#00f7ff,#ff00c8);
+    background:linear-gradient(45deg,#00c6ff,#ff0077);
     border-radius:50px;
     transition:0.3s ease;
-    box-shadow:0 0 15px #00f7ff,
-               0 0 30px #ff00c8;
+    box-shadow:0 0 15px rgba(0,198,255,0.6);
 }
 
 .glow-btn:hover{
-    box-shadow:0 0 25px #00f7ff,
-               0 0 60px #ff00c8;
     transform:scale(1.08);
+    box-shadow:0 0 30px rgba(255,0,120,0.6);
 }
 
 /* ===== WHATSAPP BUTTON ===== */
 .whatsapp-btn{
     text-decoration:none;
     padding:15px 40px;
+    font-size:18px;
+    font-weight:bold;
+    color:white;
+    background:#25D366;
+    border-radius:50px;
+    transition:0.3s ease;
+    box-shadow:0 0 15px rgba(37,211,102,0.6);
+}
+
+.whatsapp-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 30px rgba(37,211,102,0.8);
+}
+
+/* ===== PROJECT PAGE ===== */
+.project-grid{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+    margin-top:50px;
+}
+
+.project-card{
+    width:260px;
+    padding:25px;
+    border-radius:20px;
+    background:#f5f5f5;
+    box-shadow:0 0 15px rgba(0,198,255,0.4);
+    transition:0.3s ease;
+    text-align:center;
+}
+
+.project-card:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 0 30px rgba(255,0,120,0.6);
+    }    padding:15px 40px;
     font-size:18px;
     font-weight:bold;
     color:white;
