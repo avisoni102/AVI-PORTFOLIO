@@ -1,104 +1,137 @@
-/* ===== BODY ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Outfit',sans-serif;
+scroll-behavior:smooth;
+}
+
 body{
-    margin:0;
-    padding:0;
-    font-family:Arial, sans-serif;
-    background:#ffffff;   /* White background */
-    color:#111;
-    overflow-x:hidden;
+background:#ffffff;
+color:#111;
 }
 
-/* ===== SOFT ANIMATED BACKGROUND ===== */
-.bg-animation{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:linear-gradient(270deg,#00f7ff,#ff00c8,#00f7ff);
-    background-size:600% 600%;
-    animation:gradientMove 10s ease infinite;
-    z-index:-1;
-    opacity:0.08;
+section{
+padding:80px 10%;
+text-align:center;
 }
 
-@keyframes gradientMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+h1{
+font-size:48px;
+font-weight:700;
+background:linear-gradient(45deg,#ff4d4d,#ff1a75);
+-webkit-background-clip:text;
+color:transparent;
 }
 
-/* ===== CONTAINER ===== */
-.container{
-    text-align:center;
-    margin-top:100px;
-    padding:20px;
+.role{
+font-weight:600;
+margin-top:10px;
 }
 
-/* ===== PROFILE IMAGE ===== */
-.profile-img{
-    width:170px;
-    height:170px;
-    border-radius:50%;
-    object-fit:cover;
-    border:4px solid #00c6ff;
-    box-shadow:0 0 25px rgba(0,198,255,0.5);
-    animation:float 3s ease-in-out infinite;
+.fresher{
+margin-top:10px;
+color:#777;
 }
 
-@keyframes float{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-15px);}
-    100%{transform:translateY(0px);}
+h2{
+font-size:32px;
+margin-bottom:20px;
 }
 
-/* ===== STYLISH NAME ===== */
-.stylish-name{
-    font-size:52px;
-    font-weight:900;
-    background:linear-gradient(90deg,#00c6ff,#ff0077);
-    -webkit-background-clip:text;
-    color:transparent;
-    text-shadow:0 0 15px rgba(255,0,120,0.6);
-    margin-top:20px;
-    letter-spacing:2px;
+p{
+max-width:700px;
+margin:10px auto;
+color:#555;
 }
 
-/* ===== PROFESSION ===== */
-.profile p{
-    font-size:20px;
-    font-weight:600;
-    color:#333;
-    margin-top:10px;
+.btn{
+display:inline-block;
+margin:20px 10px;
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s ease;
 }
 
-/* ===== BUTTON CONTAINER ===== */
-.start-btn-container{
-    margin-top:50px;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
+.primary-btn{
+background:linear-gradient(45deg,#ff4d4d,#ff1a75);
+color:#fff;
+box-shadow:0 8px 20px rgba(255,0,100,0.3);
 }
 
-/* ===== LET'S START BUTTON ===== */
-.glow-btn{
-    text-decoration:none;
-    padding:15px 45px;
-    font-size:18px;
-    font-weight:bold;
-    color:#fff;
-    background:linear-gradient(45deg,#00c6ff,#ff0077);
-    border-radius:50px;
-    transition:0.3s ease;
-    box-shadow:0 0 15px rgba(0,198,255,0.6);
+.primary-btn:hover{
+transform:scale(1.05);
 }
 
-.glow-btn:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 30px rgba(255,0,120,0.6);
-}
-
-/* ===== WHATSAPP BUTTON ===== */
 .whatsapp-btn{
+background:#25D366;
+color:#fff;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.05);
+}
+
+.card-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:#fff;
+padding:30px;
+width:280px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.project-card img{
+width:100%;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+.testimonial{
+background:#f8f8f8;
+padding:50px;
+border-radius:20px;
+max-width:700px;
+margin:0 auto;
+font-style:italic;
+}
+
+.contact a{
+display:block;
+margin:10px 0;
+text-decoration:none;
+color:#ff1a75;
+font-weight:600;
+}
+
+footer{
+padding:20px;
+background:#111;
+color:#fff;
+text-align:center;
+}
+
+@media(max-width:768px){
+h1{font-size:34px;}
+h2{font-size:26px;}
+.card{width:100%;}
+section{padding:60px 6%;}
+}.whatsapp-btn{
     text-decoration:none;
     padding:15px 40px;
     font-size:18px;
