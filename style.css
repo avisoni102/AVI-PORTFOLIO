@@ -3,8 +3,8 @@ body{
     margin:0;
     padding:0;
     font-family:Arial, sans-serif;
-    background:#0f0f0f;
-    color:white;
+    background:#ffffff;   /* White background */
+    color:#111;           /* Dark text so visible rahe */
     overflow-x:hidden;
 }
 
