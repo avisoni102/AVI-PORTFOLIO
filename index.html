@@ -3,166 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avi | Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
-body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
-transition:0.4s;
-}
-.light{
-background:linear-gradient(135deg,#e3f2fd,#ffffff);
-color:#111;
-}
-nav{
-position:fixed;
-width:100%;
-display:flex;
-justify-content:space-between;
-padding:15px 50px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-z-index:1000;
-}
-nav a{
-color:white;
-margin:0 15px;
-text-decoration:none;
-font-weight:500;
-}
-.light nav a{color:#111;}
-section{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:40px;
-text-align:center;
-}
-h1{font-size:3rem;}
-.typing{
-color:#00f7ff;
-border-right:3px solid;
-white-space:nowrap;
-overflow:hidden;
-width:0;
-animation:typing 4s steps(30,end) forwards,blink 0.7s infinite;
-}
-@keyframes typing{
-from{width:0}
-to{width:260px}
-}
-@keyframes blink{
-50%{border-color:transparent}
-}
-.card-container{
-display:flex;
-gap:30px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:40px;
-}
-.card{
-width:250px;
-padding:20px;
-border-radius:15px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(15px);
-box-shadow:0 8px 32px rgba(0,0,0,0.3);
-transition:0.4s;
-}
-.card:hover{
-transform:translateY(-10px);
-}
-button{
-padding:10px 20px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-margin-top:20px;
-font-weight:500;
-}
-.toggle{
-position:fixed;
-bottom:20px;
-right:20px;
-}
-input,textarea{
-padding:10px;
-width:250px;
-margin:10px;
-border-radius:10px;
-border:none;
-}
-footer{
-padding:20px;
-text-align:center;
-background:rgba(0,0,0,0.2);
-}
-</style>
+<title>Avi Soni | Graphic Designer</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav>
-<div><b>Avi</b></div>
-<div>
-<a href="#home">Home</a>
-<a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
-</div>
-</nav>
+<header>
+    <nav>
+        <h2 class="logo">Avi Soni</h2>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle">🌙</button>
+    </nav>
+</header>
 
-<section id="home">
-<h1>Hi, I'm <span class="typing">Avi 👋</span></h1>
-<p>Frontend Developer | Creative Designer</p>
-<a href="resume.pdf" download><button>Download Resume</button></a>
+<section id="home" class="hero">
+    <h1>Hi, I'm <span id="typing"></span></h1>
+    <p>Professional Graphic Designer</p>
+    <a href="resume.pdf" class="btn" download>Download Resume</a>
 </section>
 
-<section id="projects">
-<h1>My Projects</h1>
-<div class="card-container">
-<div class="card">
-<h3>Project 1</h3>
-<p>Awesome website built with HTML & CSS</p>
-</div>
-<div class="card">
-<h3>Project 2</h3>
-<p>Animated Landing Page</p>
-</div>
-<div class="card">
-<h3>Project 3</h3>
-<p>Portfolio Website</p>
-</div>
-</div>
+<section id="projects" class="section">
+    <h2>My Projects</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Logo Design</h3>
+            <p>Creative and modern brand logo designs.</p>
+        </div>
+        <div class="card">
+            <h3>Social Media Posts</h3>
+            <p>Instagram & Facebook promotional creatives.</p>
+        </div>
+        <div class="card">
+            <h3>YouTube Thumbnails</h3>
+            <p>High CTR eye-catching thumbnails.</p>
+        </div>
+    </div>
 </section>
 
-Yaha <section id="contact">
-<h1>Contact Me</h1>
-
-<p>Let’s work together 👇</p>
-
-<a href="https://wa.me/918821962637" target="_blank">
-<button style="background:#25D366;color:white;">
-Chat on WhatsApp
-</button>
-</a>
-
+<section id="contact" class="section">
+    <h2>Contact Me</h2>
+    <p>📞 8829162637</p>
+    <a href="https://wa.me/918829162637" target="_blank" class="btn">Message on WhatsApp</a>
 </section>
 
 <footer>
-© 2026 Avi | All Rights Reserved
+    <p>© 2026 Avi Soni | All Rights Reserved</p>
 </footer>
 
-<button class="toggle" onclick="toggleMode()">🌙</button>
-
-<script>
-function toggleMode(){
-document.body.classList.toggle("light");
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
