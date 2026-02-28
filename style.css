@@ -54,7 +54,10 @@ body{
 /* ===== NAME ===== */
 .profile h1{
     margin-top:20px;
-    font-size:28px;
+    font-size:32px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing:2px;
+    text-transform:uppercase;
 }
 
 /* ===== PROFESSION ===== */
