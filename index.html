@@ -3,58 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avi Soni | Graphic Designer</title>
+<title>Avi Soni | Thumbnail & Social Media Designer</title>
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
+<!-- Loader -->
+<div id="loader">
+  <h1 class="loader-text">AVI SONI</h1>
+</div>
+
+<!-- Floating Background -->
+<div class="floating-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
 <header>
-    <nav>
-        <h2 class="logo">Avi Soni</h2>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button id="themeToggle">🌙</button>
-    </nav>
+<nav>
+<h2 class="logo">Avi Soni</h2>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#work">Work</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
 </header>
 
 <section id="home" class="hero">
-    <h1>Hi, I'm <span id="typing"></span></h1>
-    <p>Professional Graphic Designer</p>
-    <a href="resume.pdf" class="btn" download>Download Resume</a>
+
+<div class="memoji-container">
+<img src="memoji.png" alt="Avi 3D" class="memoji">
+<h1 class="glow-text">Avi Soni</h1>
+</div>
+
+<h2 class="fade-in">
+I Create Scroll-Stopping <br>
+YouTube Thumbnails & Social Media Posts
+</h2>
+
+<h3 class="impact-line">
+Scroll rukega. Nazar tik jayegi. Growth phategi. 🚀
+</h3>
+
+<h3 class="impact-line delay2">
+Thumbnail aisa banega… CTR khud bol padega 💣
+</h3>
+
+<div class="hero-buttons">
+<a href="#work" class="btn">View My Work</a>
+<a href="https://wa.me/918829162637?text=Hi%20Avi%2C%20I%20need%20design%20services" class="btn hire">
+Hire Me
+</a>
+<a href="resume.pdf" class="btn">Download Resume</a>
+</div>
+
 </section>
 
-<section id="projects" class="section">
-    <h2>My Projects</h2>
-    <div class="cards">
-        <div class="card">
-            <h3>Logo Design</h3>
-            <p>Creative and modern brand logo designs.</p>
-        </div>
-        <div class="card">
-            <h3>Social Media Posts</h3>
-            <p>Instagram & Facebook promotional creatives.</p>
-        </div>
-        <div class="card">
-            <h3>YouTube Thumbnails</h3>
-            <p>High CTR eye-catching thumbnails.</p>
-        </div>
-    </div>
+<section id="work" class="section">
+<h2>My Work</h2>
+
+<div class="gallery">
+<img src="thumb1.jpg">
+<img src="thumb2.jpg">
+<img src="post1.jpg">
+<img src="post2.jpg">
+</div>
+
 </section>
 
-<section id="contact" class="section">
-    <h2>Contact Me</h2>
-    <p>📞 8829162637</p>
-    <a href="https://wa.me/918829162637" target="_blank" class="btn">Message on WhatsApp</a>
+<section id="contact" class="section contact">
+<h2>Let's Work Together</h2>
+<p>📞 8829162637</p>
+<p>📧 avisoni102@gmail.com</p>
+
+<a href="https://wa.me/918829162637?text=Hi%20Avi%2C%20I%20need%20design%20services" class="btn hire">
+Message on WhatsApp
+</a>
 </section>
 
 <footer>
-    <p>© 2026 Avi Soni | All Rights Reserved</p>
+<p>© 2026 Avi Soni | All Rights Reserved</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.getElementById("loader").style.opacity = "0";
+    document.getElementById("loader").style.visibility = "hidden";
+  }, 2000);
+});
+</script>
+
 </body>
 </html>
