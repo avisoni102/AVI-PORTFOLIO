@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avi Soni | Graphic Designer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#0f0f0f;
+  color:white;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  left:0;
+  padding:20px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:1000;
+}
+
+header h1{
+  font-size:20px;
+  color:#00f2ff;
+}
+
+nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#00f2ff;
+}
+
+section{
+  min-height:100vh;
+  padding:120px 10%;
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s ease;
+}
+
+section.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.hero{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.hero h2{
+  font-size:55px;
+  background:linear-gradient(90deg,#00f2ff,#ff00c8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  margin-top:20px;
+  max-width:500px;
+  line-height:1.6;
+  color:#ccc;
+}
+
+.btn{
+  margin-top:30px;
+  padding:12px 30px;
+  border:none;
+  background:#00f2ff;
+  color:black;
+  cursor:pointer;
+  border-radius:30px;
+  transition:0.3s;
+  text-decoration:none;
+  display:inline-block;
+  font-weight:600;
+}
+
+.btn:hover{
+  background:#ff00c8;
+  color:white;
+  transform:scale(1.08);
+}
+
+.skills span{
+  display:inline-block;
+  margin:10px;
+  padding:10px 20px;
+  border:1px solid #00f2ff;
+  border-radius:30px;
+  transition:0.3s;
+}
+
+.skills span:hover{
+  background:#00f2ff;
+  color:black;
+}
+
+.project-box{
+  margin-top:30px;
+  padding:25px;
+  border-radius:15px;
+  background:#1a1a1a;
+  transition:0.4s;
+}
+
+.project-box:hover{
+  transform:translateY(-10px) scale(1.02);
+  background:#222;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  background:#111;
+  color:#777;
+}
+
+/* Animated Background Glow */
+body::before{
+  content:"";
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#00f2ff55,transparent);
+  top:-100px;
+  left:-100px;
+  animation:move 8s infinite alternate;
+  z-index:-1;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#ff00c855,transparent);
+  bottom:-100px;
+  right:-100px;
+  animation:move 10s infinite alternate;
+  z-index:-1;
+}
+
+@keyframes move{
+  from{transform:translateY(0);}
+  to{transform:translateY(80px);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Avi Soni</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+  </nav>
+</header>
+
+<section id="home" class="hero active">
+  <h2>Graphic Designer</h2>
+  <p>I create modern logos, thumbnails, branding visuals and social media graphics that help brands grow and stand out.</p>
+  <a href="#projects" class="btn">View My Work</a>
+</section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>I’m Avi Soni, a passionate Graphic Designer who loves creating stylish and eye-catching designs. I focus on creativity, branding strategy and modern aesthetics.</p>
+</section>
+
+<section id="skills">
+  <h2>My Skills</h2>
+  <div class="skills">
+    <span>Logo Design</span>
+    <span>Thumbnail Design</span>
+    <span>Brand Identity</span>
+    <span>Social Media Graphics</span>
+    <span>Photo Editing</span>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>My Projects</h2>
+
+  <div class="project-box">
+    <h3>Brand Logo Project</h3>
+    <p>Modern minimalist logo design for a startup brand.</p>
+  </div>
+
+  <div class="project-box">
+    <h3>YouTube Thumbnail Series</h3>
+    <p>High CTR engaging thumbnails for tech channel.</p>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Avi Soni | Graphic Designer
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll",()=>{
+  sections.forEach(sec=>{
+    const top = window.scrollY;
+    const offset = sec.offsetTop - 400;
+    if(top > offset){
+      sec.classList.add("active");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
