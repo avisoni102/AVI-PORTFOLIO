@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinayak Choice Centre | Smart Digital Seva Raipur</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Hind -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#f0f4f9',
+                            800: '#0b2545',
+                            900: '#06172e',
+                        },
+                        saffron: {
+                            500: '#e65100',
+                            600: '#cc4400',
+                            700: '#b33b00',
+                        },
+                        emerald: {
+                            600: '#00875a',
+                            700: '#006b47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Hind', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-hero {
+            background: linear-gradient(135deg, #06172e 0%, #0b2545 60%, #133863 100%);
+        }
+        .tricolor-strip {
+            background: linear-gradient(90deg, #e65100 33.33%, #ffffff 33.33%, #ffffff 66.66%, #00875a 66.66%);
+        }
+        .pill-checkbox:checked + label {
+            background-color: #0b2545;
+            color: #ffffff;
+            border-color: #0b2545;
+            box-shadow: 0 4px 12px rgba(11, 37, 69, 0.25);
+        }
+        .pill-checkbox:checked + label .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-down {
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-saffron-500 selection:text-white pb-20 lg:pb-0">
+
+    <!-- Top Tricolor Accent Bar -->
+    <div class="tricolor-strip h-1.5 w-full"></div>
+
+    <!-- Live Mobile-Style Notification Banner for Shopkeeper -->
+    <div id="liveAlertBanner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-lg bg-navy-900 text-white rounded-2xl shadow-2xl p-4 border-2 border-saffron-500 animate-slide-down">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-saffron-500 flex items-center justify-center text-white text-xl flex-shrink-0 animate-bounce">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div>
+                    <h5 class="font-bold text-saffron-500 text-sm flex items-center gap-2">
+                        <span>🔔 New Order / Enquire Alert!</span>
+                        <span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded-full uppercase">Just Now</span>
+                    </h5>
+                    <p id="alertBannerText" class="text-xs text-slate-200 mt-1 leading-snug">Customer booking received...</p>
+                </div>
+            </div>
+            <button onclick="dismissBanner()" class="text-slate-400 hover:text-white p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Top Owner Control & Sound Bar -->
+    <div class="bg-navy-900 text-slate-200 text-xs py-2 px-4 border-b border-navy-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2 font-medium text-center sm:text-left">
+                <span class="bg-saffron-500 text-white px-2 py-0.5 rounded font-bold uppercase text-[10px]">CSC Authorized</span>
+                <span>🏠 Home Visit & 💻 Remote Desktop Assistance across Raipur, Chhattisgarh</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleAlertSound()" id="soundToggleBtn" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded text-slate-200 font-medium transition-all text-xs">
+                    <i class="fa-solid fa-volume-high text-emerald-600" id="soundIcon"></i>
+                    <span id="soundToggleText">Sound Alerts ON</span>
+                </button>
+
+                <button onclick="toggleAdminDrawer()" class="bg-saffron-500 hover:bg-saffron-600 text-white px-2.5 py-1 rounded font-semibold transition-all flex items-center gap-1.5 text-xs">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Owner Portal</span>
+                    <span id="adminBadge" class="bg-white text-navy-900 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sticky Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Identity -->
+                <a href="#home" class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center text-saffron-500 text-2xl font-black shadow-inner border-2 border-saffron-500">
+                        <i class="fa-solid fa-v"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-black text-xl sm:text-2xl text-navy-800 tracking-tight leading-none">VINAYAK CHOICE CENTRE</h1>
+                        <p class="text-xs font-bold text-emerald-600 mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-house-laptop"></i> Digital Seva Kendra • Doorstep & Online Support
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation -->
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-700">
+                    <a href="#home" class="hover:text-saffron-500 transition-colors">Home</a>
+                    <a href="#wizard-section" class="hover:text-saffron-500 transition-colors text-saffron-500 font-bold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Smart Solution Finder</a>
+                    <a href="#all-services" class="hover:text-saffron-500 transition-colors">Browse All Services</a>
+                    <a href="#contact" class="hover:text-saffron-500 transition-colors">Shop Location & Raipur Map</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:+919876543210" class="hidden sm:inline-flex items-center gap-1.5 text-navy-800 bg-slate-100 hover:bg-slate-200 font-bold text-xs px-3.5 py-2.5 rounded-xl transition-colors">
+                        <i class="fa-solid fa-phone text-saffron-500"></i> +91 98765 43210
+                    </a>
+                    <a href="#wizard-section" class="bg-saffron-500 hover:bg-saffron-600 text-white text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl shadow transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-clipboard-question"></i> Select Problem
+                    </a>
+                    <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-700 hover:text-navy-800">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-slate-700 font-semibold text-sm">
+            <a href="#home" class="block py-2 hover:bg-slate-50 px-2 rounded">Home</a>
+            <a href="#wizard-section" class="block py-2 text-saffron-500 hover:bg-slate-50 px-2 rounded font-bold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Smart Problem Selection</a>
+            <a href="#all-services" class="block py-2 hover:bg-slate-50 px-2 rounded">Browse All Services List</a>
+            <a href="#contact" class="block py-2 hover:bg-slate-50 px-2 rounded">Raipur Address & Directions</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-hero text-white py-12 lg:py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center space-y-5">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-xs font-bold text-slate-100">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Guided Assistance • Transparent Process • Expert Solutions</span>
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+                    Aapko Kis <span class="text-saffron-500">Digital Seva Ya Solution</span> Ki Avashyakta Hai?
+                </h2>
+                
+                <p class="text-slate-200 text-sm sm:text-base font-normal max-w-2xl mx-auto leading-relaxed">
+                    Aapko alag-alag services mein ulajhne ki aavashyakta nahi hai. Niche apni requirement ke anusaar category chunein, specific updates select karein aur turant expert solution prapt karein — <strong>Dukan par aakar, Online remote assistance ke zariye, ya Ghar baithe Home Visit dwara!</strong>
+                </p>
+
+                <div class="pt-2 flex flex-wrap justify-center gap-4">
+                    <a href="#wizard-section" class="bg-saffron-500 hover:bg-saffron-600 text-white font-extrabold px-6 py-3.5 rounded-2xl shadow-xl transition-all flex items-center gap-2 text-sm sm:text-base">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i> Start Smart Problem Wizard
+                    </a>
+                    <a href="https://wa.me/919876543210?text=Hello%20Vinayak%20Choice%20Centre,%20mujhe%20help%20chahiye" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-xl transition-all flex items-center gap-2 text-sm sm:text-base">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Direct WhatsApp Help
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PSYCHOLOGY-DRIVEN SMART PROBLEM WIZARD SECTION -->
+    <section id="wizard-section" class="py-12 max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+            
+            <!-- Wizard Header Progress Bar -->
+            <div class="bg-navy-900 text-white p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-saffron-500 font-extrabold text-xs uppercase tracking-widest flex items-center gap-1.5">
+                            <i class="fa-solid fa-headset"></i> Guided Help Wizard
+                        </span>
+                        <h3 class="text-2xl sm:text-3xl font-black mt-1">Smart Solution Finder</h3>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1">Apni zarurat chunein aur specific updates ka option select karein.</p>
+                    </div>
+
+                    <!-- Step Tracker Indicator -->
+                    <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-2xl border border-white/15 text-xs font-bold self-stretch sm:self-auto justify-center">
+                        <span id="wizardStepBadge" class="text-saffron-500 text-sm font-black">STEP 1</span>
+                        <span class="text-slate-400">/ 5 Steps</span>
+                    </div>
+                </div>
+
+                <!-- Step Bar Visual -->
+                <div class="grid grid-cols-5 gap-2 mt-6">
+                    <div id="stepBar1" class="h-2 rounded-full bg-saffron-500 transition-all"></div>
+                    <div id="stepBar2" class="h-2 rounded-full bg-white/20 transition-all"></div>
+                    <div id="stepBar3" class="h-2 rounded-full bg-white/20 transition-all"></div>
+                    <div id="stepBar4" class="h-2 rounded-full bg-white/20 transition-all"></div>
+                    <div id="stepBar5" class="h-2 rounded-full bg-white/20 transition-all"></div>
+                </div>
+            </div>
+
+            <!-- Wizard Body Content Container -->
+            <div class="p-6 sm:p-10">
+                
+                <!-- STEP 1: Main Category Selection -->
+                <div id="wizardStep1" class="space-y-6">
+                    <div class="text-center max-w-xl mx-auto">
+                        <h4 class="text-xl font-extrabold text-navy-800">1. Aapko kis tarah ki madad ya service chahiye?</h4>
+                        <p class="text-xs text-slate-500 mt-1">Niche diye gaye main category me se ek tap karein:</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Category Button 1 -->
+                        <button onclick="selectCategory('aadhaar')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">Aadhaar Card Work</h5>
+                                <p class="text-xs text-slate-500 mt-1">Naam, Pata, Mobile number, Photo change, PVC Card print</p>
+                            </div>
+                        </button>
+
+                        <!-- Category Button 2 -->
+                        <button onclick="selectCategory('pan')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-address-card"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">PAN Card Services</h5>
+                                <p class="text-xs text-slate-500 mt-1">Naya PAN Card banwana, Correction/Sudhar, Instant e-PAN</p>
+                            </div>
+                        </button>
+
+                        <!-- Category Button 3 -->
+                        <button onclick="selectCategory('certificates')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">Government Certificates</h5>
+                                <p class="text-xs text-slate-500 mt-1">Jati (Caste), Aay (Income), Niwas (Residence) Praman Patra</p>
+                            </div>
+                        </button>
+
+                        <!-- Category Button 4 -->
+                        <button onclick="selectCategory('land')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">Zameen & Khasra Records</h5>
+                                <p class="text-xs text-slate-500 mt-1">Bhuiyan Khasra B-1, Bhu-Naksha, Land map certified print</p>
+                            </div>
+                        </button>
+
+                        <!-- Category Button 5 -->
+                        <button onclick="selectCategory('banking')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">Cash Withdrawal & Transfer</h5>
+                                <p class="text-xs text-slate-500 mt-1">Aadhaar se paise nikalein (AEPS), Money Transfer, Pension</p>
+                            </div>
+                        </button>
+
+                        <!-- Category Button 6 -->
+                        <button onclick="selectCategory('jobs')" class="category-card p-5 rounded-2xl border-2 border-slate-200 hover:border-navy-800 bg-slate-50 hover:bg-slate-100 text-left transition-all group flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-navy-800 text-base">Online Job & College Forms</h5>
+                                <p class="text-xs text-slate-500 mt-1">CG Vyapam, CGPSC, SSC, Admit Card, College Admission</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Multi-Option Sub-Selection Options -->
+                <div id="wizardStep2" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                        <div>
+                            <span id="selectedCategoryTitle" class="text-saffron-500 font-extrabold text-xs uppercase">Selected Category</span>
+                            <h4 class="text-xl font-extrabold text-navy-800 mt-0.5">2. Aapko isme kya-kya changes ya specific kaam karwana hai?</h4>
+                            <p class="text-xs text-slate-500">Ek ya ek se adhik options par tap karke select karein (Multi-Select):</p>
+                        </div>
+                        <button onclick="goToStep(1)" class="text-xs font-bold text-slate-500 hover:text-navy-800 bg-slate-100 px-3 py-1.5 rounded-lg">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Change Category
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Sub-Options Pills Container -->
+                    <div id="subOptionsContainer" class="grid sm:grid-cols-2 gap-3">
+                        <!-- Options generated via JS -->
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button onclick="validateStep2AndNext()" class="bg-saffron-500 hover:bg-saffron-600 text-white font-extrabold px-8 py-3 rounded-xl text-sm shadow-md flex items-center gap-2">
+                            Next: Service Location <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Service Location / Delivery Mode -->
+                <div id="wizardStep3" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-navy-800">3. Aap service kis tarah se lena chahte hain?</h4>
+                            <p class="text-xs text-slate-500">Apni suvidha ke anusaar delivery mode chunein:</p>
+                        </div>
+                        <button onclick="goToStep(2)" class="text-xs font-bold text-slate-500 hover:text-navy-800 bg-slate-100 px-3 py-1.5 rounded-lg">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                        </button>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <!-- Mode Option 1: In-Shop -->
+                        <label class="cursor-pointer">
+                            <input type="radio" name="deliveryMode" value="At Centre" checked class="peer hidden" onchange="toggleAddressBox(false)">
+                            <div class="p-5 rounded-2xl border-2 border-slate-200 peer-checked:border-navy-800 peer-checked:bg-navy-900 peer-checked:text-white transition-all text-center space-y-2 h-full flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-full bg-saffron-500/10 text-saffron-500 peer-checked:bg-saffron-500 peer-checked:text-white flex items-center justify-center text-xl mx-auto mb-2">
+                                        <i class="fa-solid fa-store"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-base">🏪 Dukan me Aakar</h5>
+                                    <p class="text-xs text-slate-500 peer-checked:text-slate-300 mt-1">Pandri Road, Raipur shop par direct aakar turant kaam karwayein.</p>
+                                </div>
+                                <span class="inline-block bg-slate-100 peer-checked:bg-white/10 text-slate-700 peer-checked:text-white text-[10px] font-bold px-2.5 py-1 rounded-full mt-2">Standard Rates</span>
+                            </div>
+                        </label>
+
+                        <!-- Mode Option 2: Home Visit -->
+                        <label class="cursor-pointer">
+                            <input type="radio" name="deliveryMode" value="Home Visit" class="peer hidden" onchange="toggleAddressBox(true)">
+                            <div class="p-5 rounded-2xl border-2 border-slate-200 peer-checked:border-navy-800 peer-checked:bg-navy-900 peer-checked:text-white transition-all text-center space-y-2 h-full flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-full bg-saffron-500/10 text-saffron-500 peer-checked:bg-saffron-500 peer-checked:text-white flex items-center justify-center text-xl mx-auto mb-2">
+                                        <i class="fa-solid fa-house-user"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-base">🏠 Doorstep Home Visit</h5>
+                                    <p class="text-xs text-slate-500 peer-checked:text-slate-300 mt-1">Hamara operator aapke ghar aakar biometric / document verification karega.</p>
+                                </div>
+                                <span class="inline-block bg-saffron-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full mt-2">Raipur City Special</span>
+                            </div>
+                        </label>
+
+                        <!-- Mode Option 3: Remote Online -->
+                        <label class="cursor-pointer">
+                            <input type="radio" name="deliveryMode" value="Remote Online" class="peer hidden" onchange="toggleAddressBox(false)">
+                            <div class="p-5 rounded-2xl border-2 border-slate-200 peer-checked:border-navy-800 peer-checked:bg-navy-900 peer-checked:text-white transition-all text-center space-y-2 h-full flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 peer-checked:bg-emerald-600 peer-checked:text-white flex items-center justify-center text-xl mx-auto mb-2">
+                                        <i class="fa-solid fa-laptop text-xl"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-base">💻 Remote Online Assistance</h5>
+                                    <p class="text-xs text-slate-500 peer-checked:text-slate-300 mt-1">WhatsApp & Phone pe documents bhejkar online kaam/print receive karein.</p>
+                                </div>
+                                <span class="inline-block bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full mt-2">Fastest & No Travel</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button onclick="goToStep(4)" class="bg-saffron-500 hover:bg-saffron-600 text-white font-extrabold px-8 py-3 rounded-xl text-sm shadow-md flex items-center gap-2">
+                            Next: View Required Docs & Fee <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Document Checklist & Estimated Fee Breakdown -->
+                <div id="wizardStep4" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-navy-800">4. Required Documents Checklist & Estimated Charges</h4>
+                            <p class="text-xs text-slate-500">In dastawezo (documents) ko taiyar rakhein:</p>
+                        </div>
+                        <button onclick="goToStep(3)" class="text-xs font-bold text-slate-500 hover:text-navy-800 bg-slate-100 px-3 py-1.5 rounded-lg">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                        </button>
+                    </div>
+
+                    <!-- Summary Card -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-200 pb-3">
+                            <div>
+                                <span class="text-[11px] font-bold text-slate-500 uppercase">Selected Request Summary:</span>
+                                <h5 id="summarySelectedChanges" class="font-extrabold text-navy-800 text-sm">--</h5>
+                            </div>
+                            <div class="text-left sm:text-right">
+                                <span class="text-[11px] font-bold text-slate-500 uppercase">Estimated Processing Fee:</span>
+                                <div id="summaryEstimatedFee" class="text-lg font-black text-saffron-500">₹50 - ₹150</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h6 class="font-extrabold text-navy-800 text-xs uppercase mb-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-folder-open text-saffron-500"></i> Zaroori Dastawez (Documents Needed):
+                            </h6>
+                            <ul id="summaryDocList" class="space-y-2 text-xs sm:text-sm text-slate-700">
+                                <!-- Generated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button onclick="goToStep(5)" class="bg-saffron-500 hover:bg-saffron-600 text-white font-extrabold px-8 py-3 rounded-xl text-sm shadow-md flex items-center gap-2">
+                            Next: Final Booking & Direct Alert <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Customer Details & Immediate Notification Trigger -->
+                <div id="wizardStep5" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                        <div>
+                            <h4 class="text-xl font-extrabold text-navy-800">5. Contact Details Darj Karein & Dukan Ko Alert Bhejein</h4>
+                            <p class="text-xs text-slate-500">Submit karte hi Dukan owner ke mobile par loud sound alert jayega:</p>
+                        </div>
+                        <button onclick="goToStep(4)" class="text-xs font-bold text-slate-500 hover:text-navy-800 bg-slate-100 px-3 py-1.5 rounded-lg">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                        </button>
+                    </div>
+
+                    <form onsubmit="handleWizardSubmission(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 mb-1">Aapka Pura Naam (Full Name) *</label>
+                            <input type="text" id="wizCustName" required placeholder="e.g. Rajesh Kumar Sahu" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-navy-800">
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-extrabold text-slate-700 mb-1">Mobile / WhatsApp Number *</label>
+                                <input type="tel" id="wizCustPhone" required placeholder="9876543210" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-navy-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-extrabold text-slate-700 mb-1">Preferred Time / Date</label>
+                                <input type="text" id="wizCustTime" placeholder="e.g. Aaj Sham 5 Baje" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-navy-800">
+                            </div>
+                        </div>
+
+                        <!-- Address input for Home Visit -->
+                        <div id="wizAddressContainer" class="hidden">
+                            <label class="block text-xs font-extrabold text-slate-700 mb-1">Ghar Ka Pata (Raipur Address for Home Visit) *</label>
+                            <input type="text" id="wizCustAddress" placeholder="Makan No, Landmark, Area Name, Raipur" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-navy-800">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 mb-1">Koi Khas Message Ya Requirement?</label>
+                            <input type="text" id="wizCustNotes" placeholder="e.g. Urgent hai, certificate urgent banwana hai..." class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-navy-800">
+                        </div>
+
+                        <button type="submit" class="w-full bg-saffron-500 hover:bg-saffron-600 text-white font-black py-4 rounded-2xl text-base transition-all shadow-xl flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i> Submit Inquiry & Notify Vinayak Choice Centre
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OPTIONAL DIRECT BROWSE ALL SERVICES SECTION -->
+    <section id="all-services" class="py-12 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+                <div>
+                    <span class="bg-navy-800 text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">Complete Catalog</span>
+                    <h3 class="text-2xl sm:text-3xl font-black text-navy-800 mt-2">Browse All Services Directly</h3>
+                    <p class="text-xs sm:text-sm text-slate-600">Agar aap direct service card dekhna chahte hain:</p>
+                </div>
+
+                <!-- Instant Search Bar -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="directSearch" placeholder="Search service name..." class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-navy-800">
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6" id="servicesGrid">
+                <!-- Card 1 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">Aadhaar Card Correction & Update</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Name change, address update, phone number link, biometric & PVC printing.</p>
+                    <button onclick="startWizardWithCat('aadhaar')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">PAN Card (New & Correction)</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">NSDL / UTI portal PAN card application, e-PAN delivery in 2 hours.</p>
+                    <button onclick="startWizardWithCat('pan')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">Jati, Aay & Niwas Praman Patra</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">e-District CG government verified certificates with online digital sign.</p>
+                    <button onclick="startWizardWithCat('certificates')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">Khasra B-1 & Land Naksha</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Chhattisgarh Bhuiyan land records certified print and WhatsApp PDF delivery.</p>
+                    <button onclick="startWizardWithCat('land')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">AEPS Cash Withdrawal & Banking</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">Aadhaar thumb impression doorstep cash withdrawal and money transfer.</p>
+                    <button onclick="startWizardWithCat('banking')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="service-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="font-extrabold text-navy-800 text-base">Govt Job & Exam Admissions</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">CG Vyapam, CGPSC, SSC applications, Admit Cards & result printouts.</p>
+                    <button onclick="startWizardWithCat('jobs')" class="w-full bg-slate-100 hover:bg-navy-800 hover:text-white text-navy-800 font-extrabold py-2 rounded-xl text-xs transition-colors">
+                        Select Changes & Book <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Raipur Shop Location & Directions -->
+    <section id="contact" class="py-14 bg-navy-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-5">
+                    <span class="text-saffron-500 font-extrabold text-xs uppercase tracking-widest">Shop Address & Contact</span>
+                    <h3 class="text-3xl font-black text-white">Vinayak Choice Centre Raipur</h3>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        Authorized CSC Digital Seva Kendra with high-speed internet and trained operators. Visit our shop or call us for Home Visit service across Raipur city.
+                    </p>
+
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-saffron-500 text-base mt-1"></i>
+                            <p><strong class="text-white">Shop Address:</strong> Shop No. 4, Ground Floor, Near Shankar Nagar Main Chowk, Pandri Road, Raipur, Chhattisgarh - 492001</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-clock text-saffron-500 text-base mt-1"></i>
+                            <p><strong class="text-white">Timings:</strong> Mon - Sat: 9:00 AM – 8:30 PM | Sun: Home Visit & Emergency Only</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone text-saffron-500 text-base mt-1"></i>
+                            <p><strong class="text-white">Phone & WhatsApp:</strong> +91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <a href="https://maps.google.com/?q=Raipur+Chhattisgarh" target="_blank" class="bg-white text-navy-900 font-extrabold px-5 py-2.5 rounded-xl text-xs hover:bg-slate-200 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-diamond-turn-right text-saffron-500"></i> Open Google Map Directions
+                        </a>
+                        <a href="tel:+919876543210" class="bg-saffron-500 text-white font-extrabold px-5 py-2.5 rounded-xl text-xs hover:bg-saffron-600 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-phone"></i> Direct Call Owner
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Map iFrame -->
+                <div class="bg-slate-800 p-2.5 rounded-2xl border border-slate-700 h-72 sm:h-80 shadow-2xl">
+                    <iframe 
+                        title="Vinayak Choice Centre Raipur Map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118983.72728860718!2d81.57919375!3d21.2513844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dda23be28229%3A0x163ee1204ff9e240!2sRaipur%2C%20Chhattisgarh!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+                        class="w-full h-full rounded-xl border-0" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-slate-400 text-xs py-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-1.5">
+            <p class="font-extrabold text-slate-200">Vinayak Choice Centre - CSC & Digital Seva Kendra Raipur</p>
+            <p class="text-slate-500">Serving Shankar Nagar, Pandri, Devendra Nagar, Telibandha & All Raipur Locations.</p>
+        </div>
+    </footer>
+
+    <!-- SHOPKEEPER OWNER ADMIN DRAWER (SLIDE-IN MODAL) -->
+    <div id="adminDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="bg-navy-900 text-white p-5 flex items-center justify-between border-b border-navy-800">
+            <div>
+                <h4 class="font-black text-base flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-saffron-500"></i>
+                    <span>Owner Admin Dashboard</span>
+                </h4>
+                <p class="text-xs text-slate-400 mt-0.5">Realtime Customer Inquiries & Sound Alerts Log</p>
+            </div>
+            <button onclick="toggleAdminDrawer()" class="text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-700">Recent Customer Bookings</span>
+            <button onclick="clearAdminLogs()" class="text-xs text-red-600 hover:text-red-700 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-trash-can"></i> Clear History
+            </button>
+        </div>
+
+        <div id="adminLogsList" class="flex-1 overflow-y-auto p-4 space-y-3">
+            <!-- Dynamic logs -->
+        </div>
+
+        <div class="p-4 border-t border-slate-200 bg-slate-50">
+            <button onclick="playNotificationChime()" class="w-full bg-navy-800 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
+                <i class="fa-solid fa-volume-high text-saffron-500"></i> Test Sound Alert Chime
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Action Bottom Bar for Quick Mobile Access -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-2xl z-30 px-3 py-2 flex items-center justify-around">
+        <a href="#wizard-section" class="flex flex-col items-center text-saffron-500 font-bold text-[10px]">
+            <i class="fa-solid fa-wand-magic-sparkles text-base mb-0.5"></i>
+            <span>Select Problem</span>
+        </a>
+        <a href="tel:+919876543210" class="flex flex-col items-center text-navy-800 font-bold text-[10px]">
+            <i class="fa-solid fa-phone text-base mb-0.5"></i>
+            <span>Call Shop</span>
+        </a>
+        <a href="https://wa.me/919876543210?text=Hello%20Vinayak%20Choice%20Centre" target="_blank" class="flex flex-col items-center text-emerald-600 font-bold text-[10px]">
+            <i class="fa-brands fa-whatsapp text-lg mb-0.5"></i>
+            <span>WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- Application Script Logic -->
+    <script>
+        // Data Options Engine for Sub-Selection Steps
+        const wizardData = {
+            aadhaar: {
+                title: "Aadhaar Card Services",
+                options: [
+                    { id: "a_name", label: "Naam me Sudhar (Name Correction)", doc: "10th Marksheet or Voter ID" },
+                    { id: "a_address", label: "Pata Badalna (Address Change)", doc: "Electricity Bill or Bank Passbook" },
+                    { id: "a_mobile", label: "Mobile Number Link / Update", doc: "Original Aadhaar & Active Mobile" },
+                    { id: "a_dob", label: "Janm Tithi Update (Date of Birth)", doc: "Birth Certificate or Birth Marksheet" },
+                    { id: "a_bio", label: "Biometric / Photo Update", doc: "Physical Center Visit Needed" },
+                    { id: "a_pvc", label: "Plastic PVC Card Order & Print", doc: "Aadhaar Number or Enrolment Slip" }
+                ],
+                fee: "₹50 - ₹100"
+            },
+            pan: {
+                title: "PAN Card Services",
+                options: [
+                    { id: "p_new", label: "Naya PAN Card Application", doc: "Aadhaar Card & 2 Photos" },
+                    { id: "p_corr", label: "PAN Card Correction / Name-DOB Change", doc: "Aadhaar Card with correct details" },
+                    { id: "p_link", label: "Aadhaar - PAN Linkage", doc: "Aadhaar & PAN details match" },
+                    { id: "p_ePan", label: "Instant Digital e-PAN Download", doc: "Aadhaar with active Mobile OTP" }
+                ],
+                fee: "₹107 - ₹150"
+            },
+            certificates: {
+                title: "Government Praman Patra",
+                options: [
+                    { id: "c_jati", label: "Jati Praman Patra (Caste Certificate)", doc: "Parents Caste Proof & Khasra Copy" },
+                    { id: "c_niwas", label: "Niwas Praman Patra (Residence Cert.)", doc: "Ration Card or Voter ID" },
+                    { id: "c_aay", label: "Aay Praman Patra (Income Certificate)", doc: "Employer Slip or Panchayat Affidavit" }
+                ],
+                fee: "₹70 - ₹120"
+            },
+            land: {
+                title: "Zameen / Khasra Bhuiyan Work",
+                options: [
+                    { id: "l_b1", label: "Khasra / B-1 Online Download", doc: "District, Tehsil, Village & Khasra No." },
+                    { id: "l_naksha", label: "Bhu-Naksha Land Map Print", doc: "Khasra Number" },
+                    { id: "l_cert", label: "Certified Digital Sign Copy", doc: "Owner Name or Land ID" }
+                ],
+                fee: "₹30 - ₹60"
+            },
+            banking: {
+                title: "AEPS Cash Withdrawal & Banking",
+                options: [
+                    { id: "b_cash", label: "Aadhaar Fingerprint Cash Withdrawal", doc: "Aadhaar Card Number & Bank Name" },
+                    { id: "b_transfer", label: "Instant Money Transfer (DMT)", doc: "Receiver Bank Account & IFSC Code" },
+                    { id: "b_pension", label: "Sarkari Pension Withdrawal at Home", doc: "Aadhaar Card & Thumb impression" }
+                ],
+                fee: "₹20 - ₹50"
+            },
+            jobs: {
+                title: "Online Job & College Forms",
+                options: [
+                    { id: "j_vyapam", label: "CG Vyapam / CGPSC Exam Form", doc: "Marksheets, Photo & Signature" },
+                    { id: "j_ssc", label: "SSC / Railway Recruitment", doc: "Aadhaar Card & Educational details" },
+                    { id: "j_admit", label: "Admit Card & Result Printout", doc: "Roll Number / Registration ID" }
+                ],
+                fee: "₹50 - ₹100"
+            }
+        };
+
+        // State variables
+        let currentStep = 1;
+        let selectedCatKey = null;
+        let selectedSubOptions = [];
+        let isSoundOn = true;
+        let bookingsLog = JSON.parse(localStorage.getItem('vinayak_bookings') || '[]');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAdminLogs();
+        });
+
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        // Wizard Navigation Controller
+        function goToStep(step) {
+            currentStep = step;
+            
+            // Hide all step screens
+            for(let i=1; i<=5; i++) {
+                document.getElementById(`wizardStep${i}`).classList.add('hidden');
+                document.getElementById(`stepBar${i}`).classList.remove('bg-saffron-500');
+                document.getElementById(`stepBar${i}`).classList.add('bg-white/20');
+            }
+
+            // Show current step screen
+            document.getElementById(`wizardStep${step}`).classList.remove('hidden');
+            
+            // Update Progress Bar
+            for(let i=1; i<=step; i++) {
+                document.getElementById(`stepBar${i}`).classList.remove('bg-white/20');
+                document.getElementById(`stepBar${i}`).classList.add('bg-saffron-500');
+            }
+
+            document.getElementById('wizardStepBadge').textContent = `STEP ${step}`;
+        }
+
+        // Start wizard directly from category selection
+        function startWizardWithCat(catKey) {
+            selectCategory(catKey);
+            document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // STEP 1 Selection Handler
+        function selectCategory(catKey) {
+            selectedCatKey = catKey;
+            selectedSubOptions = [];
+            const data = wizardData[catKey];
+
+            document.getElementById('selectedCategoryTitle').textContent = data.title;
+            const container = document.getElementById('subOptionsContainer');
+            
+            container.innerHTML = data.options.map((opt) => `
+                <div class="relative">
+                    <input type="checkbox" id="${opt.id}" value="${opt.label}" data-doc="${opt.doc}" onchange="toggleSubOption(this)" class="pill-checkbox hidden">
+                    <label for="${opt.id}" class="flex items-start justify-between p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-slate-400 transition-all text-xs font-bold text-navy-800">
+                        <div class="pr-2">
+                            <div>${opt.label}</div>
+                            <span class="text-[10px] text-slate-500 font-normal block mt-1">Required: ${opt.doc}</span>
+                        </div>
+                        <div class="check-icon w-5 h-5 rounded-full bg-saffron-500 text-white flex items-center justify-center text-[10px] opacity-0 scale-75 transition-all flex-shrink-0">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                    </label>
+                </div>
+            `).join('');
+
+            goToStep(2);
+        }
+
+        // Track sub option toggles
+        function toggleSubOption(elem) {
+            const val = elem.value;
+            const doc = elem.getAttribute('data-doc');
+            
+            if (elem.checked) {
+                selectedSubOptions.push({ label: val, doc: doc });
+            } else {
+                selectedSubOptions = selectedSubOptions.filter(item => item.label !== val);
+            }
+        }
+
+        // STEP 2 Validation
+        function validateStep2AndNext() {
+            if (selectedSubOptions.length === 0) {
+                alert("Kripya kam se kam ek specific option/change par tap karke select karein!");
+                return;
+            }
+            goToStep(3);
+        }
+
+        // STEP 3 Toggle Address Box
+        function toggleAddressBox(show) {
+            const container = document.getElementById('wizAddressContainer');
+            const input = document.getElementById('wizCustAddress');
+            if (show) {
+                container.classList.remove('hidden');
+                input.setAttribute('required', 'true');
+            } else {
+                container.classList.add('hidden');
+                input.removeAttribute('required');
+            }
+        }
+
+        // Populate STEP 4 Document Summary
+        function updateStep4Summary() {
+            const labels = selectedSubOptions.map(o => o.label).join(", ");
+            document.getElementById('summarySelectedChanges').textContent = labels;
+            document.getElementById('summaryEstimatedFee').textContent = wizardData[selectedCatKey].fee;
+
+            const docListElem = document.getElementById('summaryDocList');
+            docListElem.innerHTML = selectedSubOptions.map(o => `
+                <li class="flex items-start gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600 text-sm mt-0.5"></i>
+                    <span><strong>${o.label}:</strong> Keep ${o.doc}</span>
+                </li>
+            `).join('');
+        }
+
+        // Override Step nav to update summary
+        const origGoToStep = goToStep;
+        goToStep = function(step) {
+            if (step === 4) {
+                updateStep4Summary();
+            }
+            origGoToStep(step);
+        };
+
+        // Web Audio Chime Function
+        function playNotificationChime() {
+            if (!isSoundOn) return;
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+
+                const now = ctx.currentTime;
+                const osc1 = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc1.type = 'sine';
+                osc2.type = 'triangle';
+
+                osc1.frequency.setValueAtTime(523.25, now); 
+                osc1.frequency.exponentialRampToValueAtTime(783.99, now + 0.15); 
+
+                osc2.frequency.setValueAtTime(659.25, now); 
+                osc2.frequency.exponentialRampToValueAtTime(1046.50, now + 0.15); 
+
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 0.6);
+                osc2.stop(now + 0.6);
+            } catch (e) {
+                console.log("Audio play prevented", e);
+            }
+        }
+
+        function toggleAlertSound() {
+            isSoundOn = !isSoundOn;
+            document.getElementById('soundToggleText').textContent = isSoundOn ? "Sound Alerts ON" : "Sound Alerts OFF";
+            document.getElementById('soundIcon').className = isSoundOn ? "fa-solid fa-volume-high text-emerald-600" : "fa-solid fa-volume-xmark text-slate-400";
+        }
+
+        // Final Submission Handler
+        function handleWizardSubmission(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('wizCustName').value.trim();
+            const phone = document.getElementById('wizCustPhone').value.trim();
+            const mode = document.querySelector('input[name="deliveryMode"]:checked').value;
+            const address = document.getElementById('wizCustAddress').value.trim();
+            const time = document.getElementById('wizCustTime').value.trim();
+            const notes = document.getElementById('wizCustNotes').value.trim();
+
+            const selectedChangesText = selectedSubOptions.map(o => o.label).join(", ");
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // 1. Play Sound Alert for Shopkeeper
+            playNotificationChime();
+
+            // 2. Show Live In-App Top Alert Banner
+            const banner = document.getElementById('liveAlertBanner');
+            document.getElementById('alertBannerText').innerHTML = `<strong>Customer:</strong> ${name} (${phone})<br><strong>Changes:</strong> ${selectedChangesText} | <strong>Mode:</strong> ${mode}`;
+            banner.classList.remove('hidden');
+            setTimeout(() => { banner.classList.add('hidden'); }, 8000);
+
+            // 3. Save to Local Storage Admin History (Linked secretly to owner profile)
+            const newOrder = { 
+                id: Date.now(), 
+                name, 
+                phone, 
+                mode, 
+                address, 
+                changes: selectedChangesText, 
+                time, 
+                notes, 
+                timestamp,
+                ownerEmail: "avisoni102@gmail.com",
+                ownerMobile: "8821962637"
+            };
+            bookingsLog.unshift(newOrder);
+            localStorage.setItem('vinayak_bookings', JSON.stringify(bookingsLog));
+            renderAdminLogs();
+
+            // 4. Show success confirmation modal to customer WITHOUT leaking owner details or WhatsApp redirect
+            showSuccessModal(name, selectedChangesText, mode);
+        }
+
+        function showSuccessModal(customerName, changes, mode) {
+            const existing = document.getElementById('successModal');
+            if (existing) existing.remove();
+
+            const modalHTML = `
+                <div id="successModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center space-y-4 shadow-2xl animate-slide-down">
+                        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <h4 class="text-2xl font-black text-navy-800">Aapki Request Darj Ho Gayi Hai!</h4>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Shukriya <strong>${customerName}</strong> ji. Vinayak Choice Centre team ko aapki requirement (<em>${changes}</em>) mil chuki hai. Hum jald hi aapke diye gaye number par sampark karenge.
+                        </p>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-left space-y-1">
+                            <div><strong>Service Mode:</strong> ${mode}</div>
+                            <div><strong>Status:</strong> <span class="text-emerald-600 font-bold">Successfully Sent to Vinayak Centre</span></div>
+                        </div>
+                        <button onclick="closeSuccessModal()" class="w-full bg-navy-800 hover:bg-navy-900 text-white font-extrabold py-3 rounded-xl text-sm transition-all shadow">
+                            Theek Hai (Done)
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            if (modal) modal.remove();
+            // Reset wizard to step 1
+            goToStep(1);
+            document.getElementById('wizard-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function dismissBanner() {
+            document.getElementById('liveAlertBanner').classList.add('hidden');
+        }
+
+        // Admin Drawer Logic
+        function toggleAdminDrawer() {
+            document.getElementById('adminDrawer').classList.toggle('translate-x-full');
+        }
+
+        function renderAdminLogs() {
+            const listElem = document.getElementById('adminLogsList');
+            document.getElementById('adminBadge').textContent = bookingsLog.length;
+
+            if (bookingsLog.length === 0) {
+                listElem.innerHTML = `
+                    <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-[11px] text-blue-900 space-y-1">
+                        <p class="font-bold"><i class="fa-solid fa-circle-info text-saffron-500"></i> Notification Guide for Owner:</p>
+                        <p>Jab bhi koi customer website par form bharega, aapko yahin <strong>Owner Portal</strong> me live entry dikhegi aur loud sound alert bajega.</p>
+                        <p class="text-slate-500 mt-1">Configured Owner: <strong>8821962637</strong> | avisoni102@gmail.com (Hidden from public)</p>
+                    </div>
+                    <p class="text-center text-xs text-slate-400 py-6">No customer inquiries logged yet.</p>`;
+                return;
+            }
+
+            let html = `
+                <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-[11px] text-emerald-900 mb-2">
+                    <span class="font-bold">Active Alerts Active:</span> Connected to <strong>8821962637</strong>. Customers cannot see your personal contact details.
+                </div>
+            `;
+
+            html += bookingsLog.map(item => `
+                <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm relative text-xs">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-saffron-500/10 text-saffron-600 font-bold text-[10px] px-2 py-0.5 rounded">
+                            ${item.mode}
+                        </span>
+                        <span class="text-[10px] text-slate-400">${item.timestamp}</span>
+                    </div>
+                    <h5 class="font-bold text-navy-800 mt-1">${item.name} (${item.phone})</h5>
+                    <p class="text-slate-600 font-medium mt-0.5">${item.changes}</p>
+                    ${item.address ? `<p class="text-[11px] text-slate-500 mt-1">🏠 ${item.address}</p>` : ''}
+                    <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px]">
+                        <a href="tel:${item.phone}" class="text-emerald-600 font-bold hover:underline"><i class="fa-solid fa-phone"></i> Call</a>
+                        <button onclick="deleteLog(${item.id})" class="text-slate-400 hover:text-red-600"><i class="fa-solid fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+
+            listElem.innerHTML = html;
+        }
+
+        function deleteLog(id) {
+            bookingsLog = bookingsLog.filter(item => item.id !== id);
+            localStorage.setItem('vinayak_bookings', JSON.stringify(bookingsLog));
+            renderAdminLogs();
+        }
+
+        function clearAdminLogs() {
+            if (confirm("Clear all recorded customer bookings?")) {
+                bookingsLog = [];
+                localStorage.removeItem('vinayak_bookings');
+                renderAdminLogs();
+            }
+        }
+
+        // Filter direct search catalog
+        document.getElementById('directSearch').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
